@@ -91,6 +91,7 @@ if (canvas.getContext) {
   
   function drawStrokeRect(context, x1, y1, widthRect, heightRect, color) {
     context.strokeStyle = color;
+    context.lineWidth = lineThickness;
     context.strokeRect(x1, y1, widthRect, heightRect);
   }
 }
