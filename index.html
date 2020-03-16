@@ -2,35 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>PaintJS</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="start-menu" id="start-menu">
     <button class="start-button" id="start-button">start</button>
   </div>
-  <div class="paint-wrapper">
-  <div class="toolbox">
-    <input class="color-picker" id="color-picker" type="color"name="color-picker" value="#ff0000">
-    <div class="picked-color" id="picked-color"></div>
-    <input class="line-thickness" id="line-thickness" type="range" value="1" min="1" max="50" step="1">
-    <div class="drawtype-tool">
-      <span class="drawtype drawtype-1">
-        <input type="radio" name="drawType" value="line" checked onchange="checkDrawType()">
-        line
-      </span>
-      <span class="drawtype drawtype-2">
-        <input type="radio" name="drawType" value="fillRect" onchange="checkDrawType()">
-        fill rectangle
-      </span>
-      <span class="drawtype drawtype-3">
-        <input type="radio" name="drawType" value="strokeRect" onchange="checkDrawType()">
-        stroke rectangle
-      </span>
-    </div> <!-- drawtype-tool -->
-  </div> <!-- toolbox -->
-  <canvas id="canvas" width="1000px" height="500px"></canvas>
-  </div> <!-- paint-wrapper -->
+  <div class="page-wrapper">
+    <div class="paint-wrapper">
+      <div class="toolbox">
+        <div class="color-picker-wrapper" id="color-picker-wrapper">
+            <input id="color-picker" type="color" value="#000000">
+          </div>
+          <input class="line-thickness" id="line-thickness" type="range" value="1" min="1" max="50" step="1">
+          <div class="draw-type" id="line">
+            <img src="https://img.icons8.com/ios-filled/50/000000/squiggly-line.png"/>
+            <span id="active-line"></span>
+          </div>
+          <div class="draw-type" id="fillRectangle">
+            <img src="https://img.icons8.com/ios-filled/50/000000/rectangle.png"/>
+            <span id="active-fillRectangle"></span>
+          </div>
+          <div class="draw-type" id="strokeRectangle">
+            <img src="https://img.icons8.com/ios-filled/50/000000/full-image.png"/>
+            <span id="active-strokeRectangle"></span>
+          </div>
+      </div>
+      <div class="canvas-wrapper">
+        <canvas class="canvas" id="canvas-main" width="1200" height="600"></canvas>
+        <canvas class="canvas" id="canvas-buffer" width="1200" height="600"></canvas>
+      </div>
+    </div> <!-- paint-wrapper -->
+    <!-- <a target="_blank" href="https://icons8.com/icons/set/squiggly-line">Squiggly Line icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    <a target="_blank" href="https://icons8.com/icons/set/rectangle">Rectangle icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    <a target="_blank" href="https://icons8.com/icons/set/full-image">Full Image icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
+  </div> <!-- page-wrapper -->
 </body>
 <script src="main.js"></script>
 </html>

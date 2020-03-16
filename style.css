@@ -4,6 +4,20 @@
   padding: 0;
 }
 
+body {
+  background-color: pink;
+}
+
+/*1. Start menu and start button*/
+/*2. Page wrapper*/
+/*3. Paint wrapper*/
+/*4. Canvas*/
+/*5. Toolbox*/
+/*6. Color picker*/
+/*7. Line width tool ( input[range] )*/
+/*8. Draw type*/
+
+/* Start menu and start button */
 .start-menu {
   position: fixed;
   top: 0;
@@ -13,7 +27,7 @@
   background-color: pink;
   display: flex;
   justify-content: center;
-  z-index: 100;
+  z-index: 1;
 }
 
 .start-button {
@@ -55,58 +69,219 @@
   box-shadow: 1px 1px 1px black;
 }
 
-.paint-wrapper {
+.start-button:focus {
+  outline: none;
+}
+
+/*Page wrapper*/
+.page-wrapper {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: pink;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding-top: 10vh;
 }
 
+/*Paint wrapper*/
+.paint-wrapper {
+  position: relative;
+  display: flex;
+}
+
+/*Canvas*/
+.canvas-wrapper {
+  width: 1200px;
+  height: 600px;
+  position: absolute;
+  top: 0;
+  position: relative;
+  background-color: white;
+/*  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;*/
+}
+
+.canvas {
+/*  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;*/
+  width: 1200px;
+  height: 600px;
+  position: absolute;
+  top: 0;
+  cursor: url(http://r98196nd.beget.tech/etc/cursor.png)-50 50, crosshair;
+}
+
+/*Toolbox*/
 .toolbox {
-  margin-bottom: 3vh;
-  width: 1000px;
+  width: 1200px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  background-color: #eee;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-around;
+  padding-left: 20px;
 }
 
-.color-picker {
+/*Color picker*/
+input[type="color"] {
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.color-picker-wrapper {
   display: inline-block;
-}
-
-.picked-color {
+  background-color: #000;
+  cursor: pointer;
+  border-radius: 100%;
   width: 50px;
   height: 50px;
-  background-color: black;
-  display: inline-block;
-  border: 1px solid white;
 }
 
-.line-thickness {
-  display: inline-block;
+/*Line width tool ( input[range] )*/
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 20%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
 }
 
-.drawtype-tool {
-  display: inline-block;
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
 }
 
-.drawtype {
-  text-transform: uppercase;
-  font-family: Arial;
-  font-size: 18px;
-  text-shadow: 1px 1px 1px white;
+input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
 }
 
-canvas {
-  border: 2px dashed black;
-  width: 1000px;
-  height: 500px;
-  background-color: white;
+input[type=range]::-ms-track {
+  width: 20%;
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+
+/*Custom styling*/
+/*Thumb*/
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/*Track*/
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+input[type=range]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #367ebd;
+}
+
+/*Draw type*/
+.draw-type {
+  cursor: pointer;
+  position: relative;
+}
+
+.draw-type img {
   display: block;
+}
+
+.draw-type span {
+  width: 5px;
+  height: 5px;
+  display: block;
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  background-color: #000;
+  border-radius: 100%;
+  opacity: 0;
+}
+
+#active-line {
+  opacity: 1;
 }

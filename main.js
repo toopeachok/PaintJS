@@ -1,72 +1,104 @@
-var startMenu = document.getElementById("start-menu");
-var button = document.getElementById("start-button");
-
-button.onclick = function () {
-  startMenu.style.display = "none";
+// Start menu and start button
+document.getElementById("start-button").onclick = function () {
+  document.getElementById("start-menu").style.display = "none";
 }
 
-var canvas = document.getElementById("canvas");
+//Color picker
+var colorPicker = document.getElementById("color-picker");
+var colorPickerWrapper = document.getElementById("color-picker-wrapper");
+var lineColor = "#000000";
 
-if (canvas.getContext) {
-  var isDrawing = false;  // When true, moving the mouse draws on the canvas
+colorPicker.onchange = function() {
+  lineColor = "" + colorPicker.value;
+  colorPickerWrapper.style.backgroundColor = lineColor;
+}
+
+//Line thickness
+var lineThickness = 1;
+var lineThicknessInput = document.getElementById("line-thickness");
+lineThicknessInput.onchange = function () {
+  lineThickness = lineThicknessInput.value;
+}
+
+//Draw type
+var drawType = "line";
+var lineInput = document.getElementById("line");
+lineInput.onclick = function() {
+  drawType = "line";
+  document.getElementById("active-line").style.opacity = 1;
+  document.getElementById("active-fillRectangle").style.opacity = 0;
+  document.getElementById("active-strokeRectangle").style.opacity = 0;
+}
+
+var fillRecInput = document.getElementById("fillRectangle");
+fillRecInput.onclick = function() {
+  drawType = "fillRectangle";
+  document.getElementById("active-line").style.opacity = 0;
+  document.getElementById("active-fillRectangle").style.opacity = 1;
+  document.getElementById("active-strokeRectangle").style.opacity = 0;
+}
+
+var strokeRecInput = document.getElementById("strokeRectangle");
+strokeRecInput.onclick = function() {
+  drawType = "strokeRectangle";
+  document.getElementById("active-line").style.opacity = 0;
+  document.getElementById("active-fillRectangle").style.opacity = 0;
+  document.getElementById("active-strokeRectangle").style.opacity = 1;
+}
+
+//Canvas
+var mainCanvas = document.getElementById("canvas-main");
+var bufferCanvas = document.getElementById("canvas-buffer");
+
+if (mainCanvas.getContext) {
+  var isDrawing = false; // When true, moving the mouse draws on the canvas
   var x = 0;
   var y = 0;
-  var lineThickness = 1;
-  var lineColor = "black";
-  var context = canvas.getContext("2d");
-  var rect = canvas.getBoundingClientRect();  // The x and y offset of the canvas from the edge of the page
-
-  var pickedColorElement = document.getElementById("picked-color");
-
-  var colorPickerElement = document.getElementById("color-picker");
-  colorPickerElement.onchange = function () {
-    lineColor = "" + colorPickerElement.value;
-    pickedColorElement.style.backgroundColor = lineColor;
-  }
-
-  var lineThicknessInput = document.getElementById("line-thickness");
-  lineThicknessInput.onchange = function () {
-    lineThickness = lineThicknessInput.value;
-  }
-
-  var drawingType = "line";
-  function checkDrawType() {
-      var inp = document.getElementsByName('drawType');
-      for (var i = 0; i < inp.length; i++) {
-          if (inp[i].type == "radio" && inp[i].checked) {
-              drawingType = inp[i].value;
-          }
-      }
-  }
+  var mainContext = mainCanvas.getContext("2d");
+  var bufferContext = bufferCanvas.getContext("2d");
+  var rect = mainCanvas.getBoundingClientRect(); // The x and y offset of the canvas from the edge of the page
 
   // Add the event listeners for mousedown, mousemove, and mouseup
-  canvas.addEventListener('mousedown', e => {
+  bufferCanvas.addEventListener('mousedown', e => {
   x = e.clientX - rect.left;
   y = e.clientY - rect.top;
   isDrawing = true;
+  mainContext.drawImage(bufferCanvas, 0, 0);
   });
 
-  canvas.addEventListener('mousemove', e => {
+  bufferCanvas.addEventListener('mousemove', e => {
     if (isDrawing === true) {
-      if (drawingType === "line") {
-        drawLine(context, x, y, e.clientX - rect.left, e.clientY - rect.top, lineThickness, lineColor);
+      if (drawType === "line") {
+        drawLine(bufferContext, x, y, e.clientX - rect.left, e.clientY - rect.top, lineThickness, lineColor);
         x = e.clientX - rect.left;
         y = e.clientY - rect.top;
+      }
+
+      if (drawType === "fillRectangle") {
+        bufferContext.clearRect(0, 0, 1200, 600);
+        drawFillRect(bufferContext, x, y, e.clientX - rect.left - x, e.clientY - rect.top - y, lineColor);
+      }
+
+      if (drawType === "strokeRectangle") {
+        bufferContext.clearRect(0, 0, 1200, 600);
+        drawStrokeRect(bufferContext, x, y, e.clientX - rect.left - x, e.clientY - rect.top - y, lineColor);
       }
     }
   });
   
   window.addEventListener('mouseup', e => {
     if (isDrawing === true) {
-      if (drawingType === "line") {
-        drawLine(context, x, y, e.clientX - rect.left, e.clientY - rect.top, lineThickness, lineColor);
+      if (drawType === "line") {
+        drawLine(mainContext, x, y, e.clientX - rect.left, e.clientY - rect.top, lineThickness, lineColor);
+      } else {
+        mainContext.drawImage(bufferCanvas, 0, 0);
       }
-      if (drawingType === "fillRect") {
-        drawFillRect(context, x, y, e.clientX - rect.left - x, e.clientY - rect.top - y, lineColor);
-      }
-      if (drawingType === "strokeRect") {
-        drawStrokeRect(context, x, y, e.clientX - rect.left - x, e.clientY - rect.top - y, lineColor);
-      }
+      // if (drawType === "fillRectangle") {
+      //   drawFillRect(mainContext, x, y, e.clientX - rect.left - x, e.clientY - rect.top - y, lineColor);
+      // }
+      // if (drawType === "strokeRectangle") {
+      //   drawStrokeRect(mainContext, x, y, e.clientX - rect.left - x, e.clientY - rect.top - y, lineColor);
+      // }
       x = 0;
       y = 0;
       isDrawing = false;
