@@ -12,22 +12,34 @@
   <div class="page-wrapper">
     <div class="paint-wrapper">
       <div class="toolbox">
+        <a id="save-button" href="">
+          <div class="menu-buttons">
+            <img src="https://img.icons8.com/metro/52/000000/save.png"/>
+          </div>
+        </a>
+        <div class="menu-buttons" id="open-button">
+          <img src="https://img.icons8.com/ios-filled/50/000000/folder-invoices--v2.png"/>
+          <input type="file" id="uploadimage">
+        </div>
         <div class="color-picker-wrapper" id="color-picker-wrapper">
             <input id="color-picker" type="color" value="#000000">
-          </div>
-          <input class="line-thickness" id="line-thickness" type="range" value="1" min="1" max="50" step="1">
-          <div class="draw-type" id="line">
-            <img src="https://img.icons8.com/ios-filled/50/000000/squiggly-line.png"/>
-            <span id="active-line"></span>
-          </div>
-          <div class="draw-type" id="fillRectangle">
-            <img src="https://img.icons8.com/ios-filled/50/000000/rectangle.png"/>
-            <span id="active-fillRectangle"></span>
-          </div>
-          <div class="draw-type" id="strokeRectangle">
-            <img src="https://img.icons8.com/ios-filled/50/000000/full-image.png"/>
-            <span id="active-strokeRectangle"></span>
-          </div>
+        </div>
+        <input class="line-thickness" id="line-thickness" type="range" value="1" min="1" max="50" step="1">
+        <div class="draw-type" id="line">
+          <img src="https://img.icons8.com/ios-filled/50/000000/squiggly-line.png"/>
+          <span id="active-line"></span>
+        </div>
+        <div class="draw-type" id="fillRectangle">
+          <img src="https://img.icons8.com/ios-filled/50/000000/rectangle.png"/>
+          <span id="active-fillRectangle"></span>
+        </div>
+        <div class="draw-type" id="strokeRectangle">
+          <img src="https://img.icons8.com/ios-filled/50/000000/full-image.png"/>
+          <span id="active-strokeRectangle"></span>
+        </div>
+        <div class="draw-type" id="clearRectangle">
+          <img src="https://img.icons8.com/metro/52/000000/delete-sign.png"/>
+        </div>
       </div>
       <div class="canvas-wrapper">
         <canvas class="canvas" id="canvas-main" width="1200" height="600"></canvas>
@@ -37,6 +49,9 @@
     <!-- <a target="_blank" href="https://icons8.com/icons/set/squiggly-line">Squiggly Line icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
     <a target="_blank" href="https://icons8.com/icons/set/rectangle">Rectangle icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
     <a target="_blank" href="https://icons8.com/icons/set/full-image">Full Image icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
+    <!--     <a href="https://icons8.com/icon/129/save">Save icon by Icons8</a>
+    <a href="https://icons8.com/icon/45/delete">Delete icon by Icons8</a> -->
+    <!-- <a href="https://icons8.com/icon/74359/folder">Folder icon by Icons8</a> -->
   </div> <!-- page-wrapper -->
 </body>
 <script src="main.js"></script>

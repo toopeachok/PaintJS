@@ -8,16 +8,19 @@ body {
   background-color: pink;
 }
 
-/*1. Start menu and start button*/
-/*2. Page wrapper*/
-/*3. Paint wrapper*/
-/*4. Canvas*/
-/*5. Toolbox*/
-/*6. Color picker*/
-/*7. Line width tool ( input[range] )*/
-/*8. Draw type*/
 
 /* Start menu and start button */
+/* Page wrapper */
+/* Paint wrapper */
+/* Canvas */
+/* Toolbox */
+/* Menu buttons */
+/* Color picker */
+/* Line width tool ( input[range] ) */
+/* Draw type */
+
+
+/* Start menu and start button  */
 .start-menu {
   position: fixed;
   top: 0;
@@ -125,6 +128,32 @@ body {
   align-items: center;
   justify-content: space-around;
   padding-left: 20px;
+}
+
+/*Menu buttons*/
+.menu-buttons {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.menu-buttons img {
+  width: 50px;
+  height: 50px;
+}
+
+#open-button {
+  position: relative;
+}
+
+#open-button input[type="file"] {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
 }
 
 /*Color picker*/
@@ -262,12 +291,16 @@ input[type=range]:focus::-ms-fill-upper {
 
 /*Draw type*/
 .draw-type {
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   position: relative;
 }
 
 .draw-type img {
   display: block;
+  width: 50px;
+  height: 50px;
 }
 
 .draw-type span {

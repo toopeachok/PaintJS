@@ -3,6 +3,30 @@ document.getElementById("start-button").onclick = function () {
   document.getElementById("start-menu").style.display = "none";
 }
 
+//Menu buttons
+var saveButton = document.getElementById("save-button");
+var openButton = document.getElementById("open-button");
+
+saveButton.onclick = function() {
+  saveButton.href = mainCanvas.toDataURL();
+  saveButton.download = "mypainting.png";
+}
+
+function draw() {
+    img = new Image(),
+    f = document.getElementById("uploadimage").files[0],
+    url = window.URL || window.webkitURL,
+    src = url.createObjectURL(f);
+
+    img.src = src;
+    img.onload = function() {
+        bufferContext.drawImage(img, 0, 0);
+        url.revokeObjectURL(src);
+    }
+}
+
+document.getElementById("uploadimage").addEventListener("change", draw, false)
+
 //Color picker
 var colorPicker = document.getElementById("color-picker");
 var colorPickerWrapper = document.getElementById("color-picker-wrapper");
@@ -90,15 +114,14 @@ if (mainCanvas.getContext) {
     if (isDrawing === true) {
       if (drawType === "line") {
         drawLine(mainContext, x, y, event.offsetX, event.offsetY, lineThickness, lineColor);
-      } else {
-        mainContext.drawImage(bufferCanvas, 0, 0);
       }
+      mainContext.drawImage(bufferCanvas, 0, 0);
       x = 0;
       y = 0;
       isDrawing = false;
     }
     bufferCanvas.onmousemove = null;
-  };
+  }
   
   function drawLine(context, x1, y1, x2, y2, lineThickness, lineColor) {
     context.beginPath();
@@ -122,3 +145,9 @@ if (mainCanvas.getContext) {
     context.strokeRect(x1, y1, widthRect, heightRect);
   }
 }
+
+  var clearRectInput = document.getElementById("clearRectangle");
+  clearRectInput.onclick = function() {
+    mainContext.clearRect(0, 0, 1200, 600);
+    bufferContext.clearRect(0, 0, 1200, 600);
+  }
