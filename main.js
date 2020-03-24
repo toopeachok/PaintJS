@@ -1,11 +1,11 @@
 // Start menu and start button
-document.getElementById("start-button").onclick = function () {
-  document.getElementById("start-menu").style.display = "none";
+document.querySelector("#start-button").onclick = function () {
+  document.querySelector("#start-menu").style.display = "none";
 }
 
 //Menu buttons
-var saveButton = document.getElementById("save-button");
-var openButton = document.getElementById("open-button");
+var saveButton = document.querySelector("#save-button");
+var openButton = document.querySelector("#open-button");
 
 saveButton.onclick = function() {
   saveButton.href = mainCanvas.toDataURL();
@@ -14,7 +14,7 @@ saveButton.onclick = function() {
 
 function draw() {
     img = new Image(),
-    f = document.getElementById("uploadimage").files[0],
+    f = document.querySelector("#uploadimage").files[0],
     url = window.URL || window.webkitURL,
     src = url.createObjectURL(f);
 
@@ -25,11 +25,11 @@ function draw() {
     }
 }
 
-document.getElementById("uploadimage").addEventListener("change", draw, false)
+document.querySelector("#uploadimage").addEventListener("change", draw, false)
 
 //Color picker
-var colorPicker = document.getElementById("color-picker");
-var colorPickerWrapper = document.getElementById("color-picker-wrapper");
+var colorPicker = document.querySelector("#color-picker");
+var colorPickerWrapper = document.querySelector("#color-picker-wrapper");
 var lineColor = "#000000";
 
 colorPicker.onchange = function() {
@@ -39,66 +39,46 @@ colorPicker.onchange = function() {
 
 //Line thickness
 var lineThickness = 1;
-var lineThicknessInput = document.getElementById("line-thickness");
+var lineThicknessInput = document.querySelector("#line-thickness");
 lineThicknessInput.onchange = function () {
   lineThickness = lineThicknessInput.value;
 }
 
 //Draw type
 var drawType = "line";
-var lineInput = document.getElementById("line");
-lineInput.onclick = function() {
-  drawType = "line";
-  document.getElementById("active-line").style.opacity = 1;
-  document.getElementById("active-fillRectangle").style.opacity = 0;
-  document.getElementById("active-strokeRectangle").style.opacity = 0;
-  document.getElementById("active-strokeCircle").style.opacity = 0;
-  document.getElementById("active-strokeStar").style.opacity = 0;
+var drawTypeElements = document.querySelectorAll(".draw-type");
+var drawTypeWrapper = document.querySelector(".draw-type-wrapper");
+var lineDrawType = document.querySelector("#line");
+drawTypeWrapper.onclick = function (event) {
+  if (event.target !== lineDrawType) {
+    lineDrawType.classList.remove("highlight-active-drawtype");
+  }
+  var target = event.target.closest('div');
+  if (target.tagName != 'DIV') return;
+  highlight(target);
 }
 
-var fillRecInput = document.getElementById("fillRectangle");
-fillRecInput.onclick = function() {
-  drawType = "fillRectangle";
-  document.getElementById("active-line").style.opacity = 0;
-  document.getElementById("active-fillRectangle").style.opacity = 1;
-  document.getElementById("active-strokeRectangle").style.opacity = 0;
-  document.getElementById("active-strokeCircle").style.opacity = 0;
-  document.getElementById("active-strokeStar").style.opacity = 0;
+var selectedImg;
+
+function highlight(img) {
+  if (selectedImg) {
+    selectedImg.classList.remove('highlight-active-drawtype');
+  }
+  selectedImg = img;
+  selectedImg.classList.add('highlight-active-drawtype');
 }
 
-var strokeRecInput = document.getElementById("strokeRectangle");
-strokeRecInput.onclick = function() {
-  drawType = "strokeRectangle";
-  document.getElementById("active-line").style.opacity = 0;
-  document.getElementById("active-fillRectangle").style.opacity = 0;
-  document.getElementById("active-strokeRectangle").style.opacity = 1;
-  document.getElementById("active-strokeCircle").style.opacity = 0;
-  document.getElementById("active-strokeStar").style.opacity = 0;
+for (var i = 0; i <= drawTypeElements.length - 2; i++) {
+  drawTypeElements[i].onclick = changeDrawType;
 }
 
-var strokeRecInput = document.getElementById("strokeCircle");
-strokeRecInput.onclick = function() {
-  drawType = "strokeCircle";
-  document.getElementById("active-line").style.opacity = 0;
-  document.getElementById("active-fillRectangle").style.opacity = 0;
-  document.getElementById("active-strokeRectangle").style.opacity = 0;
-  document.getElementById("active-strokeCircle").style.opacity = 1;
-  document.getElementById("active-strokeStar").style.opacity = 0;
-}
-
-var strokeRecInput = document.getElementById("strokeStar");
-strokeRecInput.onclick = function() {
-  drawType = "strokeStar";
-  document.getElementById("active-line").style.opacity = 0;
-  document.getElementById("active-fillRectangle").style.opacity = 0;
-  document.getElementById("active-strokeRectangle").style.opacity = 0;
-  document.getElementById("active-strokeCircle").style.opacity = 0;
-  document.getElementById("active-strokeStar").style.opacity = 1;
+function changeDrawType() {
+  drawType = String(this.id);
 }
 
 //Canvas
-var mainCanvas = document.getElementById("canvas-main");
-var bufferCanvas = document.getElementById("canvas-buffer");
+var mainCanvas = document.querySelector("#canvas-main");
+var bufferCanvas = document.querySelector("#canvas-buffer");
 
 var x = 0;
 var y = 0;
@@ -221,7 +201,7 @@ if (mainCanvas.getContext) {
       context.stroke();
   }
 
-  var clearRectInput = document.getElementById("clearRectangle");
+  var clearRectInput = document.querySelector("#clearRectangle");
   clearRectInput.onclick = function() {
     mainContext.clearRect(0, 0, 1200, 600);
     bufferContext.clearRect(0, 0, 1200, 600);

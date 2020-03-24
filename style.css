@@ -290,6 +290,11 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 /*Draw type*/
+.draw-type-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 .draw-type {
   width: 50px;
   height: 50px;
@@ -303,7 +308,8 @@ input[type=range]:focus::-ms-fill-upper {
   height: 50px;
 }
 
-.draw-type span {
+.highlight-active-drawtype:after {
+  content: "";
   width: 5px;
   height: 5px;
   display: block;
@@ -312,9 +318,4 @@ input[type=range]:focus::-ms-fill-upper {
   left: 50%;
   background-color: #000;
   border-radius: 100%;
-  opacity: 0;
-}
-
-#active-line {
-  opacity: 1;
 }
